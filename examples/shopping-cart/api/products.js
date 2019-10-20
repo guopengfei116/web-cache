@@ -1,10 +1,17 @@
 import WebCache from 'web-cache';
 
-const webCache = WebCache.createCache('products', {
+let webCache = WebCache.createCache('products', {
   // 有效期5分钟
   maxage: 60 * 5
 });
-const request = webCache.requestBefore;
+setTimeout(() => {
+  webCache = WebCache.createCache('products', {
+    // 有效期5分钟
+    maxage: 60 * 5
+  });
+  console.log(webCache);
+}, 2000)
+const request = webCache.requestBefore.bind(webCache);
 
 const _products = [
   {"id": 1, "title": "iPad 4 Mini", "price": 500.66, "inventory": 2},

@@ -1,10 +1,27 @@
 import Cache from './cache';
+import persistemce from './persistence';
 
-const caches = {};
+let caches = {};
+let collections = {};
+persistemce.getItem(['caches', 'collections']).then(datas => {
+  caches = datas[0];
+  collections = datas[1];
+});
+persistemce.setItem([
+  {
+    name: 'caches',
+    data: caches,
+  },{
+    name: 'collections',
+    data: collections,
+  },
+]);
 
 class WebCache extends Cache {
 
   static createCache(name, config) {
+    if (WebCache.getCache(name)) return WebCache.getCache(name);
+
     if (!config || typeof config !== 'object') {
       throw new TypeError('factory createCache arguments error');
     }
@@ -16,9 +33,12 @@ class WebCache extends Cache {
     return caches[name];
   }
 
+  static deleteCache(name) {
+    delete caches[name];
+  }
+
   constructor(config) {
     super(config);
-    this.requestBefore = this.requestBefore.bind(this);
   }
 
   async requestBefore(key, getRequestData) {

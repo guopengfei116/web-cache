@@ -2,3 +2,5 @@ node_modules
 
 # 案例打包目录
 examples/dist
+
+.*

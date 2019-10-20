@@ -23,6 +23,7 @@
   },
   "homepage": "https://github.com/guopengfei116/web-cache#readme",
   "dependencies": {
+    "localforage": "^1.7.3",
     "normalize.css": "^8.0.1"
   },
   "devDependencies": {

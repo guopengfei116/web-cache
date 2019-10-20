@@ -21,7 +21,17 @@ const webpackConfig = {
     path: resolve('dist'),
     filename: '[name].js',
     chunkFilename: '[id].chunk.js',
-    publicPath: '/dist/',
+    publicPath: '/__dist__/',
+  },
+
+  devtool: 'inline-source-map',
+
+  resolve: {
+    alias: {
+      'web-cache$': resolve('../src/index.js'),
+      '@': resolve('./'),
+    },
+    extensions: ['.js', '.vue', '.css'],
   },
 
   module: {
@@ -40,14 +50,6 @@ const webpackConfig = {
         use: ['vue-loader'],
       },
     ],
-  },
-
-  resolve: {
-    alias: {
-      'web-cache': resolve('../src/index.js'),
-      '@': resolve('./'),
-    },
-    extensions: ['.js', '.vue', '.css'],
   },
 
   optimization: {
